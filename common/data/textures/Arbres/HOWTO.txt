@@ -1,0 +1,8 @@
+Pour créer une image prémultipliée par le canal alpha :
+
+    http://stackoverflow.com/questions/6591361/method-for-converting-pngs-to-premultiplied-alpha
+
+for img in *.png
+do
+    convert "$img" '(' +clone -alpha Extract ')' -channel RGB -compose Multiply -composite $(basename "$img" .png)_pre.png
+done

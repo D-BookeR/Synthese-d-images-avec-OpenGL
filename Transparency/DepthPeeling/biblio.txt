@@ -1,0 +1,8 @@
+voir https://www.khronos.org/message_boards/showthread.php/8228-Details-about-handling-transparency-with-depth-peeling
+
+voir http://mmmovania.blogspot.fr/2010/11/order-independent-transparency.html
+
+voir http://www.andersriggelsen.dk/glblendfunc.php pour un outil permettant d'afficher le résultat du blending
+
+voir http://developer.download.nvidia.com/SDK/10/opengl/src/dual_depth_peeling/doc/DualDepthPeeling.pdf
+

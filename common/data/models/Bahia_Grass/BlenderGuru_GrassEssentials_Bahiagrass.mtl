@@ -1,0 +1,29 @@
+# Blender MTL File: 'BlenderGuru_GrassEssentials_Bahiagrass.blend'
+# Material Count: 3
+
+newmtl Grass_Bahiagrass_Inflorescence
+Ns 7
+Ka 0.5 0.8 0.3
+Kd 0.5 0.8 0.3
+Ks 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Grass_Bahiagrass_Leaves
+Ns 7
+Ka 0.1 0.3 0.1
+Kd 0.4 0.7 0.2
+Ks 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Grass_Bahiagrass_Stems
+Ns 7
+Ka 0.3 0.6 0.2
+Kd 0.3 0.6 0.2
+Ks 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2

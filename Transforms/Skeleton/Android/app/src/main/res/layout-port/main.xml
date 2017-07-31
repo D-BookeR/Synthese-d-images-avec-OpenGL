@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:id="@+id/boutons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/zoom"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/zoom" />
+
+      	<ImageButton
+      	    android:id="@+id/pan"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+      	    android:layout_weight="1"
+      	    android:scaleType="fitCenter"
+      	    android:src="@drawable/pan" />
+                
+	</LinearLayout>
+
+    <com.dbooker.livreopengl.OpenGLSurfaceView
+        android:id="@+id/openglsurfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/boutons"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>

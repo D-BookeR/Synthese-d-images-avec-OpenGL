@@ -1,0 +1,44 @@
+
+Représenter :
+
+* sommets :
+	- VBO :
+		- coordonnées
+		- normale
+		- tangente
+		- coordonnées de texture
+		- couleur
+	- M arêtes
+	- N faces
+
+* arêtes :
+	- 2 sommets
+	- 2 faces
+
+* triangles
+	- normale
+	- 3 sommets
+	- 3 arêtes
+	- 3 voisines
+
+
+PB : groupes de lissage
+PB : half-edge
+
+- géométrie : calcul des coordonnées
+- topologie : voisinages, appartenances
+
+
+Manips à pouvoir faire :
+
+- calcul des normales des faces
+- calcul des normales des sommets
+- extrusion d'une face
+- lissage d'un coin au niveau d'un sommet
+- simplification du maillage : supprimer une arête
+
+
+Biblio :
+
+https://developer.apple.com/library/ios/documentation/3ddrawing/conceptual/opengles_programmingguide/TechniquesforWorkingwithVertexData/TechniquesforWorkingwithVertexData.html
+

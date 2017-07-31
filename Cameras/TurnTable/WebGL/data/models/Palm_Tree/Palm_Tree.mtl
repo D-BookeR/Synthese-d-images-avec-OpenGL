@@ -1,0 +1,8 @@
+# fait par obj2opengl.py à partir de tmp/Palm_Tree.mtl
+
+newmtl Palm_Tree
+	map_Ka Palm_Tree_ambi.png
+	map_Kd Palm_Tree_diff.png
+	map_Ks Palm_Tree_spec.png
+	map_N  Palm_Tree_norm.png
+

@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <title>Advanced - BlackAndWhite</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <!-- chargement des librairies : maths, divers et debug -->
+    <script type="text/javascript" src="libs/gl-matrix-min.js"></script>
+    <script type="text/javascript" src="libs/webgl-utils.js"></script>
+    <script type="text/javascript" src="libs/webgl-debug.js"></script>
+    <script type="text/javascript" src="libs/utils.js"></script>
+
+    <!-- post-traitements pour les matériaux ou les effets -->
+    <script type="text/javascript" src="libs/Process/FrameBufferObject.js"></script>
+    <script type="text/javascript" src="libs/Process/Process.js"></script>
+
+    <!-- matériaux et éclairages à employer -->
+    <script type="text/javascript" src="libs/Material/Texture2D.js"></script>
+
+
+    <!-- objets divers prédéfinis et type de scène -->
+    <script type="text/javascript" src="libs/Misc/SceneBase.js"></script>
+    <!-- classes du projet -->
+    <script type="text/javascript" src="BlackAndWhite.js"></script>
+    <script type="text/javascript" src="Scene.js"></script>
+
+
+    <!-- initialisation du contexte OpenGL dans le canvas -->
+    <script type="text/javascript">
+
+        var scene = null;
+
+        function webGLStart()
+        {
+            // rechercher le canvas appelé "opengl-canvas"
+            let canvas=document.getElementById("opengl-canvas");
+            // le mettre en mode OpenGL
+            initGL(canvas);
+
+            // créer la scène à dessiner
+            scene = new Scene();
+            scene.onSurfaceChanged(gl.viewportWidth, gl.viewportHeight);
+
+            // demander de réafficher régulièrement
+            //refresh();
+            Utils.repeatRefresh();
+        }
+
+        function refresh()
+        {
+            if (typeof(scene) == "object")
+                scene.onDrawFrame();
+        }
+
+        function onKeyDown(keycode)
+        {
+            if (typeof(scene) == "object")
+                scene.onKeyDown(keycode);
+        }
+
+        function onKeyUp(keycode)
+        {
+        }
+
+
+        function onMouseDown(btn, x, y)
+        {
+            if (typeof(scene) != "object") return;
+            Utils.MouseMode_clicked = btn;
+            Utils.MouseMode_oldX = x;
+            Utils.MouseMode_oldY = y;
+        }
+
+        function onMouseMove(x, y)
+        {
+            if (Utils.MouseMode_clicked < 0) return;
+            switch (Utils.MouseMode_clicked) {
+            case 0:
+                let canvas=document.getElementById("opengl-canvas");
+                scene.onRotate(Utils.MouseMode_oldX,Utils.MouseMode_oldY, x,y, canvas.offsetWidth, canvas.offsetHeight);
+                break;
+            case 1:
+                scene.onZoom((x-Utils.MouseMode_oldX) - (y-Utils.MouseMode_oldY));
+                break;
+            case 2:
+                scene.onPan(x-Utils.MouseMode_oldX, Utils.MouseMode_oldY-y);
+                break;
+            default:
+                break;
+            }
+            Utils.MouseMode_oldX = x;
+            Utils.MouseMode_oldY = y;
+        }
+
+        function onMouseUp(btn, x, y)
+        {
+            Utils.MouseMode_clicked = -1;
+        }
+
+    </script>
+
+</head>
+
+<body onload="webGLStart();">
+
+    <canvas id="opengl-canvas" width="640" height="480"
+        style="border:1px solid #CCC;; background: black;"
+        oncontextmenu="return false">
+        Your browser does not support WebGL
+    </canvas>
+    <p id="infos" style="background-color:SeaShell">
+        <!-- pour afficher des infos dans cette zone, faire :
+            document.getElementById("debug").innerHTML = "message...";
+        -->
+    </p>
+    <h2>Usage</h2>
+    <ul>
+        <li>Left button to rotate scene</li>
+        <li>Mid button or Z and S keys to zoom</li>
+        <li>Right button or Q,D,A,W keys to shift</li>
+    </ul>
+    <h2>Source files</h2>
+    <ul>
+        <li><a href="BlackAndWhite.js">BlackAndWhite.js</a></li>
+        <li><a href="Scene.js">Scene.js</a></li>
+    </ul>
+
+</body>
+
+</html>

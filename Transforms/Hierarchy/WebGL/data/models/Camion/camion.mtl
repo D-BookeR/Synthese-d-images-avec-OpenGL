@@ -1,0 +1,7 @@
+# fait par obj2opengl.py à partir de tmp/camion.mtl
+
+newmtl camion
+	map_Ka camion_ambi.png
+	map_Kd camion_diff.png
+	map_Ks camion_spec.png
+	map_N camion_norm.png
