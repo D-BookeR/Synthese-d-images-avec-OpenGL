@@ -61,7 +61,7 @@ protected:
 private:
     /** identifiants liés au shader */
     GLint m_TextureLoc;
-    GLint m_AngleMaxLoc;
+    GLint m_MaxAngleLoc;
 
     // textures
     Texture2D* m_Texture;

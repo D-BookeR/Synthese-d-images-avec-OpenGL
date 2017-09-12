@@ -57,7 +57,7 @@ class TwistMaterial extends Material
             in vec2 frgTexCoord;
 
             uniform sampler2D txColor;
-            uniform float AngleMax;
+            uniform float MaxAngle;
 
             const float PI = 3.1415927;
 
@@ -67,8 +67,8 @@ class TwistMaterial extends Material
                 vec2 texcoord = frgTexCoord;
 
                 // la rotation est d'autant plus forte qu'on est proche du centre
-                float effet = pow(sin(texcoord.s * PI) * sin(texcoord.t * PI), 3.0);
-                float angle = radians(AngleMax) * effet;
+                float strength = pow(sin(texcoord.s * PI) * sin(texcoord.t * PI), 3.0);
+                float angle = radians(MaxAngle) * strength;
 
                 // produire une matrice de rotation 2D
                 float cosa = cos(angle);
@@ -95,7 +95,7 @@ class TwistMaterial extends Material
 
         // déterminer où sont les variables uniform
         this.m_TextureLoc   = gl.getUniformLocation(this.m_ShaderId, "txColor");
-        this.m_AngleMaxLoc  = gl.getUniformLocation(this.m_ShaderId, "AngleMax");
+        this.m_MaxAngleLoc  = gl.getUniformLocation(this.m_ShaderId, "MaxAngle");
     }
 
 
@@ -122,7 +122,7 @@ class TwistMaterial extends Material
         gl.useProgram(this.m_ShaderId);
 
         // fournir le nouvel angle
-        gl.uniform1f(this.m_AngleMaxLoc, anglemax);
+        gl.uniform1f(this.m_MaxAngleLoc, anglemax);
 
         // désactiver le shader
         gl.useProgram(null);

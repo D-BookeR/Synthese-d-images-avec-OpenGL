@@ -26,10 +26,10 @@ public:
      * @param hauteur du FBO
      * @param color : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer
      * @param depth : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer
-     * @param numcolors : nombre de color buffer supplémentaires pour faire du dessin différé (gl_FragData[i])
+     * @param colorsnb : nombre de color buffer supplémentaires pour faire du dessin différé (gl_FragData[i])
      * @param filtrage : filtrage des textures, mettre GL_NEAREST (valeur par défaut) ou GL_LINEAR
      */
-    FrameBufferObject(int width, int height, GLenum color=GL_TEXTURE_2D, GLenum depth=GL_RENDERBUFFER, int numcolors=0, GLenum filtering=GL_LINEAR);
+    FrameBufferObject(int width, int height, GLenum color=GL_TEXTURE_2D, GLenum depth=GL_RENDERBUFFER, int colorsnb=0, GLenum filtering=GL_LINEAR);
 
     // destructeur
     virtual ~FrameBufferObject();

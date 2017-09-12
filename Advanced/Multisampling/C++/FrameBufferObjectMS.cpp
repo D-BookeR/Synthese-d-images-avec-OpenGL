@@ -1,4 +1,4 @@
-//// ce script fournit des fonctions utilitaires pour les programmes
+//// ce fichier source fournit des fonctions utilitaires pour les programmes
 //// du livre Synthèse d'images à l'aide d'OpenGL
 
 #include <iostream>
@@ -26,7 +26,7 @@ FrameBufferObjectMS::FrameBufferObjectMS(int width, int height, int samplesnb, G
 {
     // test sur les paramètres pour éviter des bizarreries
     if (colorsnb > 0 && color == GL_NONE) {
-        throw std::invalid_argument("FrameBufferObjectMS: numcolors>0 but no main color buffer");
+        throw std::invalid_argument("FrameBufferObjectMS: colorsnb>0 but no main color buffer");
     }
 
     // variables d'instance

@@ -35,14 +35,14 @@ void FrameBufferObject::init(int width, int height)
  * @param height hauteur du FBO
  * @param color : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer.
  * @param depth : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer, NB: il faut impérativement un depth buffer dans un FBO destiné à être rendu
- * @param numcolors : nombre de color buffer supplémentaires pour faire du dessin différé (MRT), et affecter plusieurs valeurs de glFragData[i]
+ * @param colorsnb : nombre de color buffer supplémentaires pour faire du dessin différé (MRT), et affecter plusieurs valeurs de glFragData[i]
  * @param filtering : filtrage des textures, mettre GL_NEAREST ou GL_LINEAR (valeur par défaut)
  */
-FrameBufferObject::FrameBufferObject(int width, int height, GLenum color, GLenum depth, int numcolors, GLenum filtering)
+FrameBufferObject::FrameBufferObject(int width, int height, GLenum color, GLenum depth, int colorsnb, GLenum filtering)
 {
     // test sur les paramètres pour éviter des bizarreries
-    if (numcolors > 0 && color == GL_NONE) {
-        throw std::invalid_argument("FrameBufferObject: numcolors>0 but no main color buffer");
+    if (colorsnb > 0 && color == GL_NONE) {
+        throw std::invalid_argument("FrameBufferObject: colorsnb>0 but no main color buffer");
     }
 
     // variables d'instance
@@ -142,7 +142,7 @@ FrameBufferObject::FrameBufferObject(int width, int height, GLenum color, GLenum
     }
 
     // créer des buffers supplémentaires si c'est demandé
-    for (int i=0; i<numcolors; i++) {
+    for (int i=0; i<colorsnb; i++) {
 
         // créer une texture 2D pour recevoir les dessins (voir glFragData dans les shaders)
         glGenTextures(1, &bufferId);

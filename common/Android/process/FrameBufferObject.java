@@ -41,32 +41,32 @@ public class FrameBufferObject
      * @param height hauteur du FBO
      * @param color : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer
      * @param depth : fournir GL_NONE si aucun, GL_TEXTURE_2D si on veut un buffer de type texture, GL_RENDERBUFFER si c'est un renderbuffer, NB: il faut impérativement un depth buffer dans un FBO destiné à être rendu
-     * @param numcolors : nombre de color buffer supplémentaires pour faire du dessin différé (MRT), et affecter plusieurs valeurs de gl_FragData[i]
+     * @param colorsnb : nombre de color buffer supplémentaires pour faire du dessin différé (MRT), et affecter plusieurs valeurs de gl_FragData[i]
      * @param filtering : filtrage des textures, mettre GL_NEAREST ou GL_LINEAR (valeur par défaut)
      * @throws Exception
      */
-    public FrameBufferObject(int width, int height, int color, int depth, int numcolors, int filtering) throws Exception
+    public FrameBufferObject(int width, int height, int color, int depth, int colorsnb, int filtering) throws Exception
     {
-        init(width, height, color, depth, numcolors, filtering);
+        init(width, height, color, depth, colorsnb, filtering);
     }
-    public FrameBufferObject(int width, int height, int color, int depth, int numcolors) throws Exception
+    public FrameBufferObject(int width, int height, int color, int depth, int colorsnb) throws Exception
     {
-        init(width, height, color, depth, numcolors, GL_LINEAR);
+        init(width, height, color, depth, colorsnb, GL_LINEAR);
     }
     public FrameBufferObject(int width, int height, int color, int depth) throws Exception
     {
         init(width, height, color, depth, 0, GL_LINEAR);
     }
 
-    private void init(int width, int height, int color, int depth, int numcolors, int filtering) throws Exception
+    private void init(int width, int height, int color, int depth, int colorsnb, int filtering) throws Exception
     {
         // test sur les paramètres pour éviter des bizarreries
-        if (numcolors > 0 && color == GL_NONE) {
-            throw new Exception("FrameBufferObject: numcolors>0 but no main color buffer");
+        if (colorsnb > 0 && color == GL_NONE) {
+            throw new Exception("FrameBufferObject: colorsnb>0 but no main color buffer");
         }
 
         /*** MODE MRT SIMULÉ ***/
-        m_IsMRT = (numcolors > 0 && Material.GBufferSize == 0);
+        m_IsMRT = (colorsnb > 0 && Material.GBufferSize == 0);
         /*** MODE MRT SIMULÉ ***/
 
         // variables d'instance
@@ -74,8 +74,8 @@ public class FrameBufferObject
         m_DepthBufferId = 0;
         m_Width = width;
         m_Height = height;
-        m_ColorBufferIds = IntBuffer.allocate(1+numcolors);
-        m_DrawBufferNames = IntBuffer.allocate(1+numcolors);
+        m_ColorBufferIds = IntBuffer.allocate(1+colorsnb);
+        m_DrawBufferNames = IntBuffer.allocate(1+colorsnb);
         final int[] ids = new int[1];
 
         //float borderColor[] = {1.0f,1.0f,1.0f,0.0f};
@@ -176,7 +176,7 @@ public class FrameBufferObject
         }
 
         // créer des buffers supplémentaires si c'est demandé
-        for (int i=0; i<numcolors; i++) {
+        for (int i=0; i<colorsnb; i++) {
 
             // créer une texture 2D pour recevoir les dessins (voir gl_FragData dans les shaders)
             glGenTextures(1, ids, 0);

@@ -10,13 +10,13 @@ class FrameBufferObject
      * @param height hauteur du FBO
      * @param color : fournir gl.NONE si aucun, gl.TEXTURE_2D si on veut un buffer de type texture, gl.RENDERBUFFER si c'est un renderbuffer
      * @param depth : fournir gl.NONE si aucun, gl.TEXTURE_2D si on veut un buffer de type texture, gl.RENDERBUFFER si c'est un renderbuffer, NB: il faut impérativement un depth buffer dans un FBO destiné à être rendu
-     * @param numcolors : nombre de color buffer supplémentaires pour faire du dessin différé (glFragData[i])
+     * @param colorsnb : nombre de color buffer supplémentaires pour faire du dessin différé (glFragData[i])
      * @param filtering : filtrage des textures, mettre gl.NEAREST ou gl.LINEAR (mais BUG ?)
      */
-    constructor(width, height, color=gl.TEXTURE_2D, depth=gl.RENDERBUFFER, numcolors=0, filtering=gl.NEAREST)
+    constructor(width, height, color=gl.TEXTURE_2D, depth=gl.RENDERBUFFER, colorsnb=0, filtering=gl.NEAREST)
     {
         // test sur les paramètres pour éviter des bizarreries
-        if (numcolors > 0 && color == gl.NONE) throw "FrameBufferObject: numcolors>0 but no main color buffer";
+        if (colorsnb > 0 && color == gl.NONE) throw "FrameBufferObject: colorsnb>0 but no main color buffer";
 
         // extensions nécessaires
         if (!gl.getExtension('EXT_color_buffer_float'))
@@ -128,7 +128,7 @@ class FrameBufferObject
         }
 
         // créer des buffers supplémentaires si c'est demandé
-        for (let i=0; i<numcolors; i++) {
+        for (let i=0; i<colorsnb; i++) {
 
             // créer une texture 2D pour recevoir les dessins (voir glFragData dans les shaders)
             let bufferId = gl.createTexture();

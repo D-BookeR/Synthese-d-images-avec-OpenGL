@@ -55,7 +55,7 @@ std::string TwistMaterial::getFragmentShader()
         "out vec4 glFragColor;\n"
         "\n"
         "uniform sampler2D txColor;\n"
-        "uniform float AngleMax;\n"
+        "uniform float MaxAngle;\n"
         "\n"
         "const float PI = 3.1415927;\n"
         "\n"
@@ -65,8 +65,8 @@ std::string TwistMaterial::getFragmentShader()
         "    vec2 texcoord = frgTexCoord;\n"
         "\n"
         "    // la rotation est d'autant plus forte qu'on est proche du centre\n"
-        "    float effet = pow(sin(texcoord.s * PI) * sin(texcoord.t * PI), 3.0);\n"
-        "    float angle = radians(AngleMax) * effet;\n"
+        "    float strength = pow(sin(texcoord.s * PI) * sin(texcoord.t * PI), 3.0);\n"
+        "    float angle = radians(MaxAngle) * strength;\n"
         "\n"
         "    // produire une matrice de rotation 2D\n"
         "    float cosa = cos(angle);\n"
@@ -93,7 +93,7 @@ void TwistMaterial::compileShader()
 
     // déterminer où sont les variables uniform
     m_TextureLoc   = glGetUniformLocation(m_ShaderId, "txColor");
-    m_AngleMaxLoc  = glGetUniformLocation(m_ShaderId, "AngleMax");
+    m_MaxAngleLoc  = glGetUniformLocation(m_ShaderId, "MaxAngle");
 }
 
 
@@ -120,7 +120,7 @@ void TwistMaterial::setMaxAngle(float anglemax)
     glUseProgram(m_ShaderId);
 
     // fournir le nouvel angle
-    glUniform1f(m_AngleMaxLoc, anglemax);
+    glUniform1f(m_MaxAngleLoc, anglemax);
 
     // désactiver le shader
     glUseProgram(0);
