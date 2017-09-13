@@ -53,7 +53,7 @@ class BWThreshold extends Process
                 //} else {
                 //    glFragColor = vec4(0.0, 0.0, 0.0, 0.0);
                 //}
-                glFragColor = vec4(vec3(1.0) * step(threshold, luminance(color)), 1.0);
+                glFragColor = vec4(vec3(step(threshold, luminance(color))), 1.0);
             }`;
         return srcFragmentShader;
     }

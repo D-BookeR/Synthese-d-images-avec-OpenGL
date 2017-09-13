@@ -162,8 +162,8 @@ class Process
      * cette fonction associe l'une des textures de ce FBO à une unité pour un shader
      * NB : le shader concerné doit être actif
      * @param unit : unité de texture concernée, par exemple gl.TEXTURE0
-     * @param locSampler : emplacement de la variable uniform sampler* de cette texture dans le shader ou -1 pour désactiver la texture
-     * @param bufferId : m_ColorBuffer ou m_DepthBuffer ou 0 pour désactiver
+     * @param locSampler : emplacement de la variable uniform sampler* de cette texture dans le shader ou null pour désactiver la texture
+     * @param bufferId : m_ColorBuffer ou m_DepthBuffer ou null pour désactiver
      */
     setTextureUnit(unit, locSampler=null, bufferId=null)
     {
