@@ -516,7 +516,7 @@ Utils.SIZEOF_VEC4 = 4 * Utils.SIZEOF_FLOAT;
 /// ajout de fonctions à la librairie gl-matrix
 
 if (typeof vec3 == 'undefined') {
-    let mesg = "Dependancy order : please first include gl-matrix-min.js before utils.js in "+document.documentURI;
+    let msg = "Dependancy order : please first include gl-matrix-min.js before utils.js in "+document.documentURI;
     alert(msg);
     throw msg;
 }
