@@ -319,7 +319,7 @@ class Utils
 
 /// gestion du réaffichage régulier au cours du temps
 
-var InitialTime = new Date().getTime();
+var InitialTime = Date.now();
 Utils.Time = InitialTime;
 var TimeChange = true;
 var TimePause = 0;
@@ -328,16 +328,16 @@ var TimePause = 0;
 function UpdateTime()
 {
     if (TimeChange) {
-        Utils.Time = (new Date().getTime() - InitialTime) * 0.001;
+        Utils.Time = (Date.now() - InitialTime) * 0.001;
     }
 }
 
 function PauseTime()
 {
     if (TimeChange) {
-        TimePause = new Date().getTime();
+        TimePause = Date.now();
     } else {
-        InitialTime += (new Date().getTime() - TimePause);
+        InitialTime += (Date.now() - TimePause);
     }
     TimeChange = !TimeChange;
 }
