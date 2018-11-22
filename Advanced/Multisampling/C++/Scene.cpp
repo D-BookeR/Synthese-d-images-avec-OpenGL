@@ -1,6 +1,5 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
 
 #include <iostream>
 
@@ -51,6 +50,9 @@ Scene::Scene() : TurnTableScene(false)
 }
 
 
+/**
+ * Cette méthode supprime les ressources allouées
+ */
 Scene::~Scene()
 {
     delete m_Ground;
@@ -62,8 +64,8 @@ Scene::~Scene()
 
 /**
  * appelée quand la taille de la vue OpenGL change
- * @param width largeur en nombre de pixels de la fenêtre
- * @param height hauteur en nombre de pixels de la fenêtre
+ * @param width : largeur en nombre de pixels de la fenêtre
+ * @param height : hauteur en nombre de pixels de la fenêtre
  */
 void Scene::onSurfaceChanged(int width, int height)
 {
@@ -77,6 +79,9 @@ void Scene::onSurfaceChanged(int width, int height)
 }
 
 
+/**
+ * recrée les FBO utilisés en fonction de la taille de la fenêtre OpenGL
+ */
 void Scene::recreateFBO()
 {
     std::cout << "Current samples number = " << m_SamplesNumber << std::endl;

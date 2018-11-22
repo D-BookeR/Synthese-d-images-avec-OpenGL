@@ -2,7 +2,6 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
 
 #include <iostream>
 #include <math.h>
@@ -147,6 +146,9 @@ void SubPicture::setTextureUnit(GLint unit, GLint locSampler, GLuint buffer)
 
 
 
+/**
+ * Cette méthode supprime les ressources allouées
+ */
 SubPicture::~SubPicture()
 {
 }

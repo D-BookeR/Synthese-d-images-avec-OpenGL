@@ -603,7 +603,7 @@ public class vec4
     {
         m_Cells[i] = v;
     }
-    
+
     /**
      * accesseur pour les composantes
      * @param i : numéro 0..3 de la composante
@@ -628,7 +628,7 @@ public class vec4
         float h10 = ((k - 2)*k + 1)*k;
         float h01 = (3 - 2*k)*k*k;
         float h11 = (k - 1)*k*k;
-    
+
         vec4.zero(out);
         vec4.scaleAndAdd(out, out, p0, h00);
         vec4.scaleAndAdd(out, out, t0, h10);

@@ -1,5 +1,5 @@
 # Makefile pour les programmes OpenGL du livre D-BookeR
-# note: sudo apt-get install freeglut3-dev libglew-dev libsdl2-dev libsdl2-image-dev
+# note: sudo apt-get install libglfw3-dev libglew-dev libsdl2-dev libsdl2-image-dev
 
 # nom du programme à construire
 EXEC = main

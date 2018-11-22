@@ -1,7 +1,6 @@
 // Cette classe permet de calculer l'image négative (couleurs inversées)
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
 
 #include <iostream>
 #include <math.h>

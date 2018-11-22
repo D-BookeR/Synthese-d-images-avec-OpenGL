@@ -15,6 +15,9 @@ class FrameBufferObject
      */
     constructor(width, height, color=gl.TEXTURE_2D, depth=gl.RENDERBUFFER, colorsnb=0, filtering=gl.NEAREST)
     {
+        // si le constructeur est appelé d'une sous-classe qui souhaite tout initialiser elle-même
+        if (color == gl.NONE && depth == gl.NONE) return;
+
         // test sur les paramètres pour éviter des bizarreries
         if (colorsnb > 0 && color == gl.NONE) throw "FrameBufferObject: colorsnb>0 but no main color buffer";
 

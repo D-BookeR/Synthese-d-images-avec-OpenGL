@@ -2,7 +2,6 @@
 // voir https://github.com/spite/Wagner/blob/master/fragment-shaders/poisson-disc-blur-fs.glsl
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
 
 #include <iostream>
 #include <math.h>

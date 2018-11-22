@@ -604,7 +604,7 @@ public class vec2
     {
         m_Cells[i] = v;
     }
-    
+
     /**
      * accesseur pour les composantes
      * @param i : numéro 0..1 de la composante

@@ -1,10 +1,7 @@
 // Définition de la classe GreenTriangle
 
-#include <iostream>
-
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
 #include <math.h>
 #include <iostream>
 #include <sstream>

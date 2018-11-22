@@ -35,10 +35,10 @@ Scene::Scene() : TurnTableScene(false)
     m_BlinnMaterial    = new BlinnMaterial(lights_count, Ka, m_Texture, Ks, ns);
 
     // créer les objets
-    m_AppleAmbiant    = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_AmbiantMaterial, 0.01);
-    m_AppleDiffuse     = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_DiffuseMaterial, 0.01);
+    m_AppleAmbiant  = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_AmbiantMaterial, 0.01);
+    m_AppleDiffuse  = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_DiffuseMaterial, 0.01);
     m_SpecularApple = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_SpecularMaterial, 0.01);
-    m_AppleBlinn      = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_BlinnMaterial, 0.01);
+    m_AppleBlinn    = new MeshObjectFromObj("data/models/Apple", "apple.obj", m_BlinnMaterial, 0.01);
 
     // configurer les modes de dessin
     glEnable(GL_DEPTH_TEST);
