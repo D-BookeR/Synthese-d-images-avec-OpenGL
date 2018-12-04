@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
+import java.nio.IntBuffer;
 import java.util.Collection;
 
 import com.dbooker.livreopengl.glmatrix.vec3;
@@ -230,15 +231,15 @@ public class Utils
      * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
      * @return identifiant OpenGL du VBO
      */
-    public static int makeShortVBO(Collection<Short> values, int vbo_type, int usage)
+    public static int makeShortVBO(Collection<Integer> values, int vbo_type, int usage)
     {
         // mettre les données dans un Buffer android
         int size = values.size() * Short.SIZE/8;
         ByteBuffer bb = ByteBuffer.allocateDirect(size);
         bb.order(ByteOrder.nativeOrder());
         ShortBuffer buffer = bb.asShortBuffer();
-        for (Short val: values) {
-            buffer.put(val);
+        for (Integer val: values) {
+            buffer.put((short) val.intValue());
         }
         buffer.position(0);
 
@@ -268,6 +269,126 @@ public class Utils
         bb.order(ByteOrder.nativeOrder());
         ShortBuffer buffer = bb.asShortBuffer();
         buffer.put(values);
+        buffer.position(0);
+
+        // créer un VBO et le remplir avec les données
+        int[] ids = new int[1];
+        glGenBuffers(1, ids, 0);
+        glBindBuffer(vbo_type, ids[0]);
+        glBufferData(vbo_type, size, buffer, usage);
+        glBindBuffer(vbo_type, 0);
+
+        return ids[0];
+    }
+
+
+    /**
+     * cette fonction crée un VBO contenant des short
+     * @param values : tableau de short à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
+    public static int makeShortVBO(int[] values, int vbo_type, int usage)
+    {
+        // mettre les données dans un Buffer android
+        int size = values.length * Short.SIZE/8;
+        ByteBuffer bb = ByteBuffer.allocateDirect(size);
+        bb.order(ByteOrder.nativeOrder());
+        ShortBuffer buffer = bb.asShortBuffer();
+        for (int val: values) {
+            buffer.put((short) val);
+        }
+        buffer.position(0);
+
+        // créer un VBO et le remplir avec les données
+        int[] ids = new int[1];
+        glGenBuffers(1, ids, 0);
+        glBindBuffer(vbo_type, ids[0]);
+        glBufferData(vbo_type, size, buffer, usage);
+        glBindBuffer(vbo_type, 0);
+
+        return ids[0];
+    }
+
+
+    /**
+     * cette fonction crée un VBO contenant des int
+     * @param values : tableau de int à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
+    public static int makeIntVBO(Collection<Integer> values, int vbo_type, int usage)
+    {
+        // mettre les données dans un Buffer android
+        int size = values.size() * Integer.SIZE/8;
+        ByteBuffer bb = ByteBuffer.allocateDirect(size);
+        bb.order(ByteOrder.nativeOrder());
+        IntBuffer buffer = bb.asIntBuffer();
+        for (Integer val: values) {
+            buffer.put(val);
+        }
+        buffer.position(0);
+
+        // créer un VBO et le remplir avec les données
+        int[] ids = new int[1];
+        glGenBuffers(1, ids, 0);
+        glBindBuffer(vbo_type, ids[0]);
+        glBufferData(vbo_type, size, buffer, usage);
+        glBindBuffer(vbo_type, 0);
+
+        return ids[0];
+    }
+
+
+    /**
+     * cette fonction crée un VBO contenant des int
+     * @param values : tableau de int à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
+    public static int makeIntVBO(short[] values, int vbo_type, int usage)
+    {
+        // mettre les données dans un Buffer android
+        int size = values.length * Integer.SIZE/8;
+        ByteBuffer bb = ByteBuffer.allocateDirect(size);
+        bb.order(ByteOrder.nativeOrder());
+        IntBuffer buffer = bb.asIntBuffer();
+        for (short val: values) {
+            buffer.put(val);
+        }
+        buffer.position(0);
+
+        // créer un VBO et le remplir avec les données
+        int[] ids = new int[1];
+        glGenBuffers(1, ids, 0);
+        glBindBuffer(vbo_type, ids[0]);
+        glBufferData(vbo_type, size, buffer, usage);
+        glBindBuffer(vbo_type, 0);
+
+        return ids[0];
+    }
+
+
+    /**
+     * cette fonction crée un VBO contenant des int
+     * @param values : tableau de int à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
+    public static int makeIntVBO(int[] values, int vbo_type, int usage)
+    {
+        // mettre les données dans un Buffer android
+        int size = values.length * Integer.SIZE/8;
+        ByteBuffer bb = ByteBuffer.allocateDirect(size);
+        bb.order(ByteOrder.nativeOrder());
+        IntBuffer buffer = bb.asIntBuffer();
+        for (int val: values) {
+            buffer.put(val);
+        }
         buffer.position(0);
 
         // créer un VBO et le remplir avec les données

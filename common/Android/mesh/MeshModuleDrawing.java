@@ -58,7 +58,7 @@ public class MeshModuleDrawing extends MeshModule
         vboset.createAttributesVBO(m_Mesh, interleaved);
 
         // rassembler les indices des triangles
-        short[] indexlist = new short[m_Mesh.getTriangleCount() * 3];
+        int[] indexlist = new int[m_Mesh.getTriangleCount() * 3];
         int it = 0;
         for (MeshTriangle triangle: m_Mesh.getTriangleList()) {
             for (int i=0; i<3; i++) {
@@ -123,20 +123,20 @@ public class MeshModuleDrawing extends MeshModule
         }
 
         // rassembler les indices des sommets des rubans, avec des codes de redémarrage entre rubans
-        ArrayList<Short> indexlist = new ArrayList<>();
+        ArrayList<Integer> indexlist = new ArrayList<>();
         TriangleStrip precstrip = null;
         for (TriangleStrip strip: striplist) {
             // rajouter un "primitive restart"
             if (precstrip != null) {
-                short prec = (short) precstrip.getVertex(-1).getNumber();
+                int prec = precstrip.getVertex(-1).getNumber();
                 if ((indexlist.size() % 2) == 1) indexlist.add(prec);
                 indexlist.add(prec);
-                short svt = (short) strip.getVertex(0).getNumber();
+                int svt = strip.getVertex(0).getNumber();
                 indexlist.add(svt);
             }
             // rajouter les sommets du ruban
             for (MeshVertex vertex: strip.getVertexList()) {
-                indexlist.add((short) vertex.getNumber());
+                indexlist.add(vertex.getNumber());
             }
             precstrip = strip;
         }
@@ -172,12 +172,12 @@ public class MeshModuleDrawing extends MeshModule
         //    throw new Exception("Too many edges to draw");
 
         // rassembler les indices des arêtes
-        short[] indexlist = new short[edge_count * 2];
+        int[] indexlist = new int[edge_count * 2];
         int ia = 0;
         for (MeshEdge edge: m_Mesh.getEdgeList()) {
             // rajouter les sommets de l'arête
-            indexlist[ia++] = (short) edge.getVertex1().getNumber();
-            indexlist[ia++] = (short) edge.getVertex2().getNumber();
+            indexlist[ia++] = edge.getVertex1().getNumber();
+            indexlist[ia++] = edge.getVertex2().getNumber();
         }
 
         // créer le VBO des indices

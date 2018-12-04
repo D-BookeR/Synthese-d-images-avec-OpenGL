@@ -355,12 +355,18 @@ void VBOset::createDirectPrimitiveVBO(int primitive, int number)
  * @param indexlist : tableau des indices
  * @return nombre d'indices présents dans le VBO
  */
-int VBOset::createIndexedPrimitiveVBO(int primitive, std::vector<GLushort>& indexlist)
+int VBOset::createIndexedPrimitiveVBO(int primitive, std::vector<int>& indexlist)
 {
     // initialisations
     m_DrawingPrimitive = primitive;
-    m_IndexBufferId = Utils::makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
     m_IndexBufferSize = indexlist.size();
+    if (m_IndexBufferSize > 65534) {
+        m_IndexBufferId = Utils::makeIntVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+        m_IndexBufferType = GL_UNSIGNED_INT;
+    } else {
+        m_IndexBufferId = Utils::makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+        m_IndexBufferType = GL_UNSIGNED_SHORT;
+    }
 
     // création du VAO
     if (m_VAO >= 0) glDeleteVertexArrays(1, &m_VAO);
@@ -425,7 +431,7 @@ void VBOset::onDraw(mat4 mat4Projection, mat4 mat4ModelView)
     if (m_IndexBufferId >= 0) {
 
         // dessin des triangles
-        glDrawElements(m_DrawingPrimitive, m_IndexBufferSize, GL_UNSIGNED_SHORT, 0);
+        glDrawElements(m_DrawingPrimitive, m_IndexBufferSize, m_IndexBufferType, 0);
 
     } else {
 

@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 
 #include <iostream>
+#include <random>
 
 #include <utils.h>
 #include "Scene.h"

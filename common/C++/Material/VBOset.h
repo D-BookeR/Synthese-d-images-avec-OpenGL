@@ -185,6 +185,9 @@ private:
     /// identifiant du VBO des indices
     GLint m_IndexBufferId;
 
+    /// type des indices du VBO des indices GL_UNSIGNED_SHORT ou GL_UNSIGNED_INT
+    GLint m_IndexBufferType;
+
     /// nombre d'indices à dessiner
     int m_IndexBufferSize;
 
@@ -263,7 +266,7 @@ public:
      * @param indexlist : tableau des indices
      * @return nombre d'indices présents dans le VBO
      */
-    int createIndexedPrimitiveVBO(int primitive, std::vector<GLushort>& indexlist);
+    int createIndexedPrimitiveVBO(int primitive, std::vector<int>& indexlist);
 
     /**
      * Cette méthode active les VBOs et fait la liaison avec les attribute du shader

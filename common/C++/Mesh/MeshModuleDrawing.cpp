@@ -35,7 +35,7 @@ VBOset* MeshModuleDrawing::createVBOset(Material* material, bool interleaved)
     vboset->createAttributesVBO(m_Mesh, interleaved);
 
     // rassembler les indices des triangles
-    std::vector<GLushort> indexlist;
+    std::vector<int> indexlist;
     for (MeshTriangle* triangle: m_Mesh->getTriangleList()) {
         for (int i=0; i<3; i++) {
             indexlist.push_back(triangle->getVertex(i)->getNumber());
@@ -96,7 +96,7 @@ VBOset* MeshModuleDrawing::createStripVBOset(Material* material, bool interleave
     }
 
     // rassembler les indices des sommets des rubans, avec des codes de redémarrage entre rubans
-    std::vector<GLushort> indexlist;
+    std::vector<int> indexlist;
     TriangleStrip* precstrip = nullptr;
     for (TriangleStrip* strip: striplist) {
         // rajouter un "primitive restart"
@@ -145,7 +145,7 @@ VBOset* MeshModuleDrawing::createEdgesVBOset(Material* material)
     //    throw std::invalid_argument("Too many edges to draw");
 
     // rassembler les indices des arêtes
-    std::vector<GLushort> indexlist;
+    std::vector<int> indexlist;
     for (MeshEdge* edge: m_Mesh->getEdgeList()) {
         // rajouter les sommets de l'arête
         indexlist.push_back(edge->getVertex1()->getNumber());

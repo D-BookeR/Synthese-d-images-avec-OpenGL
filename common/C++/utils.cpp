@@ -302,6 +302,41 @@ GLuint makeFloatVBO(std::vector<GLfloat> values, int vbo_type, int usage)
     return id;
 }
 
+
+/**
+ * cette fonction crée un VBO contenant des GLshort
+ * @param values : tableau de GLshort à mettre dans le VBO
+ * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+ * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+ * @return identifiant OpenGL du VBO
+ */
+GLuint makeShortVBO(std::vector<int> values, int vbo_type, int usage)
+{
+    /*****DEBUG*****/
+    if (values.size() < 1) {
+        throw std::invalid_argument("Utils::makeShortVBO: values vector is empty");
+    }
+    if (vbo_type != GL_ARRAY_BUFFER && vbo_type != GL_ELEMENT_ARRAY_BUFFER) {
+        throw std::invalid_argument("Utils::makeShortVBO: second parameter, vbo_type is neither GL_ARRAY_BUFFER or GL_ELEMENT_ARRAY_BUFFER");
+    }
+    if (usage != GL_STATIC_DRAW && usage != GL_DYNAMIC_DRAW) {
+        throw std::invalid_argument("Utils::makeShortVBO: third parameter, usage is neither GL_STATIC_DRAW or GL_DYNAMIC_DRAW");
+    }
+    /*****DEBUG*****/
+    // recopier les int dans un tableau de short
+    std::vector<GLshort> copy(values.size());
+    copy.assign(values.begin(), values.end());
+    // créer un VBO et le remplir avec les données
+    GLuint id;
+    glGenBuffers(1, &id);
+    glBindBuffer(vbo_type, id);
+    glBufferData(vbo_type, copy.size()*sizeof(GLshort), copy.data(), usage);
+    glBindBuffer(vbo_type, 0);
+
+    return id;
+}
+
+
 /**
  * cette fonction crée un VBO contenant des GLshort
  * @param values : tableau de GLshort à mettre dans le VBO

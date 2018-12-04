@@ -428,8 +428,16 @@ class VBOset
     createIndexedPrimitiveVBO(primitive, indexlist)
     {
         this.m_DrawingPrimitive = primitive;
-        this.m_IndexBufferId = Utils.makeShortVBO(indexlist, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW);
         this.m_IndexBufferSize = indexlist.length;
+        if (this.m_IndexBufferSize > 65534) {
+            this.m_IndexBufferId = Utils.makeIntVBO(indexlist, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW);
+            this.m_IndexBufferType = gl.UNSIGNED_INT;
+            console.log("VBO int");
+        } else {
+            this.m_IndexBufferId = Utils.makeShortVBO(indexlist, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW);
+            this.m_IndexBufferType = gl.UNSIGNED_SHORT;
+            console.log("VBO short");
+        }
 
         // création du VAO
         if (this.m_VAO != null) gl.deleteVertexArrays(this.m_VAO);
@@ -495,7 +503,7 @@ class VBOset
         if (this.m_IndexBufferId != null) {
 
             // dessin des triangles
-            gl.drawElements(this.m_DrawingPrimitive, this.m_IndexBufferSize, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(this.m_DrawingPrimitive, this.m_IndexBufferSize, this.m_IndexBufferType, 0);
 
         } else {
 

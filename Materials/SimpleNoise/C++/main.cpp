@@ -124,13 +124,17 @@ int main(int argc,char **argv)
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
     // boucle principale
-    onSurfaceChanged(window, 640,480);
-    do {
-        // dessiner
-        onDrawRequest(window);
-        // attendre les événements
-        glfwPollEvents();
-    } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+    try {
+        onSurfaceChanged(window, 640,480);
+        do {
+            // dessiner
+            onDrawRequest(window);
+            // attendre les événements
+            glfwPollEvents();
+        } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+    } catch (const std::invalid_argument& e) {
+        std::cerr << "Something went wrong with " << e.what() << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

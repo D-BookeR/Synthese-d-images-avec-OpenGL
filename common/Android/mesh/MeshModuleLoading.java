@@ -123,7 +123,7 @@ public class MeshModuleLoading extends MeshModule
      * @param objfilename : nom complet du fichier à charger
      * @param materialname : nom du matériau à lire, les autres sont ignorés, s'il est null, tous sont acceptés
      * @param scale : rapport d'agrandissement à appliquer
-     * @throws Exception
+     * @throws Exception si pb
      */
     public void loadObjFile(String objfilename, String materialname, float scale) throws Exception
     {
@@ -196,5 +196,18 @@ public class MeshModuleLoading extends MeshModule
             }
         }
         if (computeNormals) m_Mesh.computeNormals();
+    }
+    // variantes surchargées
+    public void loadObjFile(String objfilename, String materialname) throws Exception
+    {
+        loadObjFile(objfilename, materialname, 1.0f);
+    }
+    public void loadObjFile(String objfilename, float scale) throws Exception
+    {
+        loadObjFile(objfilename, null, scale);
+    }
+    public void loadObjFile(String objfilename) throws Exception
+    {
+        loadObjFile(objfilename, null, 1.0f);
     }
 }

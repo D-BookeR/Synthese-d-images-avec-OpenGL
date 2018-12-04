@@ -25,7 +25,7 @@ public:
      * @param materialname : nom du matériau à lire, les autres sont ignorés, s'il vaut "", tous sont acceptés
      * @param scale : rapport d'agrandissement à appliquer
      */
-    void loadObjFile(std::string objfilename, std::string materialname, float scale);
+    void loadObjFile(std::string objfilename, std::string materialname="", float scale=1.0f);
 
 
 protected:

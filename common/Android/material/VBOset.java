@@ -25,8 +25,9 @@ public class VBOset
     private Material m_Material;                // matériau à activer pour dessiner ce VBOset
     private ArrayList<VBOvar> m_VBOvariables;   // variables attribute qui sont gérées par ce VBOset
     private int m_VBOdataStride;                // grand pas global
-    private int m_IndexBufferId;               // identifiant du VBO des indices
-    private int m_IndexBufferSize;             // nombre d'indices à dessiner
+    private int m_IndexBufferId;                // identifiant du VBO des indices
+    private int m_IndexBufferType;              // type des entiers du VBO des indices, GL_UNSIGNED_SHORT ou GL_UNSIGNED_INT
+    private int m_IndexBufferSize;              // nombre d'indices à dessiner
     private int m_DrawingPrimitive;             // primitive à employer pour dessiner, ex: gl.TRIANGLES
 
     @SuppressWarnings("unused")
@@ -313,7 +314,7 @@ public class VBOset
     {
         // rassembler les coordonnées, couleurs, normales et coordonnées de texture
         ArrayList<Float> data = new ArrayList<>();
-        short iv = 0;
+        int iv = 0;
         for (MeshVertex vertex: mesh.getVertexList()) {
             // renuméroter le sommet (numéro dans les VBOs)
             vertex.setNumber(iv);
@@ -335,7 +336,7 @@ public class VBOset
     private void createMultipleAttributesVBO(Mesh mesh)
     {
         // rassembler les coordonnées, couleurs et/ou normales demandées
-        short iv = 0;
+        int iv = 0;
         for (MeshVertex vertex: mesh.getVertexList()) {
             // renuméroter le sommet (numéro dans les VBOs)
             vertex.setNumber(iv);
@@ -394,18 +395,30 @@ public class VBOset
      * @param indexlist : tableau des indices
      * @return nombre d'indices présents dans le VBO
      */
-    public int createIndexedPrimitiveVBO(int primitive, short[] indexlist)
+    public int createIndexedPrimitiveVBO(int primitive, int[] indexlist)
     {
         m_DrawingPrimitive = primitive;
-        m_IndexBufferId = Utils.makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
         m_IndexBufferSize = indexlist.length;
+        if (m_IndexBufferSize > 65534) {
+            m_IndexBufferId = Utils.makeIntVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+            m_IndexBufferType = GL_UNSIGNED_INT;
+        } else {
+            m_IndexBufferId = Utils.makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+            m_IndexBufferType = GL_UNSIGNED_SHORT;
+        }
         return m_IndexBufferSize;
     }
-    public int createIndexedPrimitiveVBO(int primitive, ArrayList<Short> indexlist)
+    public int createIndexedPrimitiveVBO(int primitive, ArrayList<Integer> indexlist)
     {
         m_DrawingPrimitive = primitive;
-        m_IndexBufferId = Utils.makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
         m_IndexBufferSize = indexlist.size();
+        if (m_IndexBufferSize > 65534) {
+            m_IndexBufferId = Utils.makeIntVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+            m_IndexBufferType = GL_UNSIGNED_INT;
+        } else {
+            m_IndexBufferId = Utils.makeShortVBO(indexlist, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
+            m_IndexBufferType = GL_UNSIGNED_SHORT;
+        }
         return m_IndexBufferSize;
     }
 
@@ -465,7 +478,7 @@ public class VBOset
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferId);
 
             // dessin des triangles
-            glDrawElements(m_DrawingPrimitive, m_IndexBufferSize, GL_UNSIGNED_SHORT, 0);
+            glDrawElements(m_DrawingPrimitive, m_IndexBufferSize, m_IndexBufferType, 0);
 
             // libération du VBO des indices
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

@@ -198,9 +198,8 @@ class Utils
 
 
     /**
-     * cette fonction crée un VBO contenant des GLshort
-     * NB : en WebGL, on ne peut pas utiliser gl.drawElements avec des UNSIGNED_INT
-     * @param values : tableau de GLshort à mettre dans le VBO
+     * cette fonction crée un VBO contenant des GLushort (entiers non signés 16 bits)
+     * @param values : tableau de GLushort à mettre dans le VBO
      * @param vbo_type : type OpenGL du VBO, par exemple gl.ELEMENT_ARRAY_BUFFER
      * @param usage : type de stockage OpenGL des données, par exemple gl.STATIC_DRAW
      * @return identifiant OpenGL du VBO
@@ -224,6 +223,37 @@ class Utils
         let buffer = gl.createBuffer();
         gl.bindBuffer(vbo_type, buffer);
         gl.bufferData(vbo_type, new Uint16Array(values), usage);
+        gl.bindBuffer(vbo_type, null);
+        return buffer;
+    }
+
+
+    /**
+     * cette fonction crée un VBO contenant des GLuint (entiers non signés 32 bits)
+     * @param values : tableau de GLuint à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple gl.ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple gl.STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
+    static makeIntVBO(values, vbo_type, usage)
+    {
+        /*****DEBUG*****/
+        if (values.constructor !== Array) {
+            error("Utils.makeShortVBO: values vector is empty");
+        }
+        if (values.length < 1) {
+            error("Utils.makeShortVBO: values vector is empty");
+        }
+        if (vbo_type != gl.ARRAY_BUFFER && vbo_type != gl.ELEMENT_ARRAY_BUFFER) {
+            error("Utils.makeShortVBO: second parameter, vbo_type is neither gl.ARRAY_BUFFER ou gl.ELEMENT_ARRAY_BUFFER");
+        }
+        if (usage != gl.STATIC_DRAW && usage != gl.DYNAMIC_DRAW) {
+            error("Utils.makeShortVBO: third parameter, usage is neither gl.STATIC_DRAW or gl.DYNAMIC_DRAW");
+        }
+        /*****DEBUG*****/
+        let buffer = gl.createBuffer();
+        gl.bindBuffer(vbo_type, buffer);
+        gl.bufferData(vbo_type, new Uint32Array(values), usage);
         gl.bindBuffer(vbo_type, null);
         return buffer;
     }

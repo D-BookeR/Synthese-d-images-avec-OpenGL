@@ -208,13 +208,18 @@ int main(int argc,char **argv)
     std::cout << "F to increase samples number, G to decrease" << std::endl;
 
     // boucle principale
-    onSurfaceChanged(window, 640,480);
-    do {
-        // dessiner
-        onDrawRequest(window);
-        // attendre les événements
-        glfwPollEvents();
-    } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+    try {
+        onSurfaceChanged(window, 640,480);
+        do {
+            // dessiner
+            onDrawRequest(window);
+            // attendre les événements
+            glfwPollEvents();
+        } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+    } catch (const std::invalid_argument& e) {
+        std::cerr << "Something went wrong with " << e.what() << std::endl;
+        std::cerr << "Maybe your OpenGL graphic driver cannot do multisampling ?" << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

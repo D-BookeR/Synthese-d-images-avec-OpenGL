@@ -98,6 +98,15 @@ namespace Utils
      * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
      * @return identifiant OpenGL du VBO
      */
+    GLuint makeShortVBO(std::vector<int> values, int vbo_type, int usage);
+
+    /**
+     * cette fonction crée un VBO contenant des GLshort
+     * @param values : std::vector de GLshort à mettre dans le VBO
+     * @param vbo_type : type OpenGL du VBO, par exemple GL_ELEMENT_ARRAY_BUFFER
+     * @param usage : type de stockage OpenGL des données, par exemple GL_STATIC_DRAW
+     * @return identifiant OpenGL du VBO
+     */
     GLuint makeShortVBO(std::vector<GLshort> values, int vbo_type, int usage);
 
     /**
